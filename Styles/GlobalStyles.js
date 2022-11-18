@@ -83,8 +83,14 @@ export const HomeStyles = StyleSheet.create({
         marginTop: 30,
         color: "#3d3d3d"
 
-
-
+    },
+    logOut:{
+        backgroundColor: "#09E38D",
+        borderRadius: 6,
+        elevation: 3,
+        padding: 10,
+        marginTop: 30,
+        color: "#3d3d3d"
     },
     registerBtn: {
         backgroundColor: "#42B62B",
@@ -144,6 +150,13 @@ export const HomeStyles = StyleSheet.create({
         margin:10,
         paddingTop:15,
         height:350
+
+    },
+    drawerUserName:{
+        fontFamily:"Poppins-Regular",
+        color:"#D8390A",
+        fontSize:15,
+        paddingStart:10
 
     }
 

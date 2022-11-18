@@ -30,7 +30,6 @@ const Notes = () => {
     const findNotes = async () => {
       const result = await AsyncStorage.getItem('notesArray');
       if (result !== null) {
-        console.log(result)
         let resultant = JSON.parse(result)
         setNotes(resultant)
       }
@@ -39,7 +38,7 @@ const Notes = () => {
   }, [])
 
 
-  const addNotes =async () => {
+  const addNotes = async () => {
     if (title !== "" || description !== "") {
       const newarr = {
         id: Math.random(),
@@ -49,8 +48,7 @@ const Notes = () => {
       // setNotes([...notes, newarr]);
       notes.push(newarr);
       SetFilteredNotes([...filteredNotes, newarr]);
-     await AsyncStorage.setItem('notesArray',JSON.stringify(notes))
-      console.log(filteredNotes)
+      await AsyncStorage.setItem('notesArray', JSON.stringify(notes))
       setTitle("");
       setDesc("");
       setModalVisible(false);
@@ -74,7 +72,7 @@ const Notes = () => {
     setEditId(editedId.id)
   }
 
-  const onDelete = async(e) => {
+  const onDelete = async (e) => {
     let newArray = []
     const newFilterTodo = notes.filter(item => item.id != e);
     setNotes(newFilterTodo)
@@ -83,19 +81,18 @@ const Notes = () => {
     await AsyncStorage.setItem(
       'notesArray',
       JSON.stringify(newFilterTodo),
-     async () => {
-      await AsyncStorage.mergeItem(
+      async () => {
+        await AsyncStorage.mergeItem(
           'notesArray',
-          JSON.stringify(newFilterTodo), );
+          JSON.stringify(newFilterTodo),);
       }
     );
-  
- 
+
+
     SetFilteredNotes(newFilterTodo)
-    console.log(newFilterTodo)
   }
 
-  const editNewNotes =  async() => {
+  const editNewNotes = async () => {
     const editArray = {
       id: editId,
       title: editTitle,
@@ -107,29 +104,24 @@ const Notes = () => {
     await AsyncStorage.setItem(
       'notesArray',
       JSON.stringify(notes),
-     async () => {
-      await AsyncStorage.mergeItem(
+      async () => {
+        await AsyncStorage.mergeItem(
           'notesArray',
-          JSON.stringify(notes), );
+          JSON.stringify(notes),);
       }
     );
-  
+
     filteredNotes[editIndex] = editArray;
     setEdit(false);
   }
 
   const searchNotes = (data) => {
-    console.log("entered function search")
     const searchText = serchText.toUpperCase();
     if (searchText !== "") {
-      console.log("]11111 ")
       const matchedArray = [];
       for (let i = 0; i < notes.length; i++) {
-        console.log("22222")
         const searchTitle = notes[i].title.toUpperCase();
-        console.log("3333")
         if (searchTitle.toUpperCase().lastIndexOf(searchText, 0) === 0) {
-          console.log("matched string searched")
           matchedArray.push(notes[i]);
         }
       }
