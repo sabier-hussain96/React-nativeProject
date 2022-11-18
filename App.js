@@ -10,9 +10,7 @@ import Home from './app/screens/Home';
 import SplashScreen from './app/screens/SplashScreen';
 import TodoList from './app/screens/ToDoList';
 import Login from './app/screens/Login';
-// import EditNotes from './app/screens/EditNotes';
 import Notes from './app/screens/Notes';
-import AddNotes from './app/screens/AddNotes';
 
 
 
@@ -25,10 +23,9 @@ function App() {
         <Stack.Screen name={screenNames.SPLASH_SCREEN} component={SplashScreen} options={header_Shown} />
         <Stack.Screen name={screenNames.LOGIN_SCREEN} component={Login} options={header_Shown} />
         <Stack.Screen name={screenNames.HOME_SCREEN} component={Home} options={header_Shown} />
-        <Stack.Screen name={screenNames.CALCI_SCREEN} component={Calci} options={header_Shown}  />
-        <Stack.Screen name={screenNames.TODO_SCREEN} component={TodoList} options={header_Shown}  />
-        <Stack.Screen name={screenNames.NOTES} component={Notes} options={header_Shown}/>
-        {/* <Stack.Screen name={screenNames.ADD_NOTE} component={AddNotes} /> */}
+        <Stack.Screen name={screenNames.CALCI_SCREEN} component={Calci} options={header_Shown} />
+        <Stack.Screen name={screenNames.TODO_SCREEN} component={TodoList} options={header_Shown} />
+        <Stack.Screen name={screenNames.NOTES} component={Notes} options={header_Shown} />
       </Stack.Navigator>
     </NavigationContainer>
   );

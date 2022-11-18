@@ -1,11 +1,24 @@
 import { View, Text, TextInput, TouchableOpacity, FlatList } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import { HomeStyles } from '../../Styles/GlobalStyles';
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const TodoList = () => {
-
   const [textInput, setTextInput] = React.useState('');
   const [todo, setTodos] = useState([ ]);
+
+  useEffect(() => {
+
+    const findTodos = async () => {
+      const result = await AsyncStorage.getItem('todosArray');
+      if (result !== null) {
+        let resultant = JSON.parse(result)
+        setTodos(resultant)
+      }
+    }
+    findTodos();
+  }, [])
+
 
   const ListItem = ({ todo }) => {
     return <View style={HomeStyles.listItem}>
@@ -18,7 +31,7 @@ const TodoList = () => {
     </View>;
   }
 
-  const addTodo = () => {
+  const addTodo = async() => {
     if (textInput == "") {
       alert("Cannot add an empty list")
 
@@ -28,27 +41,28 @@ const TodoList = () => {
         task: textInput
       };
       todo.push(newTodo)
+      await AsyncStorage.setItem('todosArray', JSON.stringify(todo));
       // setTodos([...todo, newTodo]);
-      console.log(todo)
       setTextInput('');
     }
 
   }
 
-  const deleteTodo = (todoId) => {
+  const deleteTodo = async(todoId) => {
     const newFilterTodo = todo.filter(item => item.id != todoId);
+    await AsyncStorage.setItem('todosArray', JSON.stringify(newFilterTodo));
     setTodos(newFilterTodo);
   }
 
   return (
     <View>
       <Text style={HomeStyles.todoHeading} >To Do List</Text>
-      <View style={{ flexDirection: "row" }}>
+      <View style={{ flexDirection: "row"}}>
         <TextInput style={{
-          height: 50, width: 250, margin: 10, borderColor: "gray", borderColor: 'gray',
-          borderWidth: 1, padding: 10
-        }} placeholder='Add Todo Item...' value={textInput} onChangeText={text => setTextInput(text)}></TextInput>
-        <TouchableOpacity style={{ backgroundColor: "green", height: 50, width: 100, margin: 10 }} onPress={addTodo}>
+          height: 50, width: 250, marginStart: 20, marginTop:15, borderColor: "gray",
+          borderWidth: 1, padding: 10,color:'black',fontFamily:"Poppins-Regular"
+        }} placeholder='Add todo' value={textInput} onChangeText={text => setTextInput(text)}></TextInput>
+        <TouchableOpacity style={{ backgroundColor: "#37F520", height: 50, width: 100, marginStart: 10, marginTop:15 }} onPress={addTodo}>
           <Text style={{ textAlign: "center", marginTop: 15, fontWeight: "bold" }}>Add</Text>
         </TouchableOpacity>
       </View>

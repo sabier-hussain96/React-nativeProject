@@ -7,10 +7,10 @@ const Drawer = createDrawerNavigator();
 
 function Home() {
   return (
-    <Drawer.Navigator>
-      <Drawer.Screen name={screenNames.FEED_SCREEN} component={Feed} />
-      <Drawer.Screen name={screenNames.TODO_SCREEN} component={Todo} />
-      <Drawer.Screen name={screenNames.NOTES} component={Notes}/>  
+    <Drawer.Navigator screenOptions={{unmountInactiveRoutes: true}}>
+      <Drawer.Screen name={screenNames.FEED_SCREEN} component={Feed} options={{unmountOnBlur:true}} />
+      <Drawer.Screen name={screenNames.TODO_SCREEN} component={Todo} options={{unmountOnBlur:true}} />
+      <Drawer.Screen name={screenNames.NOTES} component={Notes} options={{unmountOnBlur:true}} />
     </Drawer.Navigator>
 
   );
